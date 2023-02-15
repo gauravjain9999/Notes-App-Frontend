@@ -1,0 +1,28 @@
+  <mat-toolbar style="background-color:rgb(73 73 7 / 20%)" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon matTooltip="Main Menu">menu</mat-icon>
+        <mat-sidenav-container  (backdropClick)="close('backdrop')" class="example-sidenav-container">
+          <mat-sidenav mode="push" (keydown.escape)="close('escape')" #drawer disableClose class="mat-sidenav-overlay">
+          </mat-sidenav>
+        </mat-sidenav-container>
+      </button>
+      <span>Keep Notes</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon style="color: red" matTooltip="Notes">edit</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="space-between center" matTooltip="Refresh">
+        <mat-icon>refresh</mat-icon>
+      </div>
+      <div style="margin-top: 8px; margin-left: 15px;" matTooltip="Grid View">
+        <mat-icon>grid_view</mat-icon>
+      </div>
+      <div style="margin-top: 8px; margin-left: 15px;" matTooltip="Setting">
+        <mat-icon>settings</mat-icon>
+      </div>
+    </div>
+  </mat-toolbar>
