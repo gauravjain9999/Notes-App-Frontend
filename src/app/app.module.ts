@@ -10,13 +10,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LoginRegisterComponent } from "./login-regsiter/login-register.component";
 
 @NgModule({
   declarations: [
     AppComponent,
    NotesComponent,
    HeaderComponent,
-   AddNotesComponent
+   AddNotesComponent,
+   LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,

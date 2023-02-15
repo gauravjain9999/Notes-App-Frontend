@@ -1,7 +1,10 @@
+import { LoginRegisterComponent } from './../../login-regsiter/login-register.component';
 import { Component, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from "@angular/flex-layout";
 import { FormControl } from "@angular/forms";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatSidenav } from "@angular/material/sidenav";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +17,8 @@ export class HeaderComponent {
   hideRequiredControl = new FormControl(false);
   mediaFlagObserver = false;
 
-  constructor(public mediaObserver: MediaObserver) { }
+  constructor(public mediaObserver: MediaObserver, private router: Router,
+  private bottomSheet: MatBottomSheet) { }
 
   ngOnInit(): void {
 
@@ -27,6 +31,11 @@ export class HeaderComponent {
 
   close(event: any) {
     this.drawer?.close();
+  }
+
+  openSetting(){
+    this.bottomSheet.open(LoginRegisterComponent);
+    // this.router.navigate(['login-Register']);
   }
 
 

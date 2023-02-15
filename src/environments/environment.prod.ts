@@ -1,3 +1,6 @@
+const API_URL = 'http://localhost:7000/';
+
 export const environment = {
-  production: true
+  production: true,
+  apiServiceUrl: API_URL,
 };

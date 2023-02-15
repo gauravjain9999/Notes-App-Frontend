@@ -15,13 +15,13 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div fxLayout="row" fxLayoutAlign="space-between center" matTooltip="Refresh">
+      <div fxLayout="row" class="pointer" fxLayoutAlign="space-between center" matTooltip="Refresh">
         <mat-icon>refresh</mat-icon>
       </div>
-      <div style="margin-top: 8px; margin-left: 15px;" matTooltip="Grid View">
+      <div class="pointer mT-8 mL-15" matTooltip="Grid View">
         <mat-icon>grid_view</mat-icon>
       </div>
-      <div style="margin-top: 8px; margin-left: 15px;" matTooltip="Setting">
+      <div class="pointer mT-8 mL-15" matTooltip="Setting" (click)="openSetting()">
         <mat-icon>settings</mat-icon>
       </div>
     </div>

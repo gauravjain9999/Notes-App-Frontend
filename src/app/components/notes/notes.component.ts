@@ -1,9 +1,9 @@
-
 import { AddNotesComponent } from './../add-notes/add-notes.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { NotesService } from "src/app/services/notes.service";
+import { EditNotesComponent } from "../edit-notes/edit-notes.component";
 
 @Component({
   selector: 'app-notes',
@@ -18,7 +18,7 @@ export class NotesComponent implements OnInit {
   listApp: any[] = [];
   searchValue: string = '';
 
-  constructor(public mediaObserver: MediaObserver, public dialog: MatDialog, private service: NotesService) {
+  constructor(public mediaObserver: MediaObserver, public dialog: MatDialog, private service: NotesService){
     this.getListNotes()
   }
 
@@ -38,6 +38,22 @@ export class NotesComponent implements OnInit {
 
   clearSearchData(){
     this.searchValue = '';
+  }
+
+  editInfo(item: any, index: any){
+    const dialogRef = this.dialog.open(EditNotesComponent, {
+      height: '40px',
+      width: '450px',
+    })
+    console.log('ITem is ', item, index);
+  }
+
+  deleteNotes(item: any, index: any){
+    this.service.delete(item._id).subscribe(data =>{
+      console.log('Notes List is', data);
+      this.listApp = this.listApp.splice(item, index);
+      this.getListNotes();
+    });
   }
 
   getListNotes(){

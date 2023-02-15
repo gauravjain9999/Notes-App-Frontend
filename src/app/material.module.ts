@@ -29,6 +29,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card'
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 const materialTheme = [
@@ -49,6 +50,7 @@ const materialTheme = [
     MatRippleModule,
     MatChipsModule,
     MatTableModule,
+    MatBottomSheetModule,
     MatButtonToggleModule,
     MatButtonModule,
     MatAutocompleteModule,

@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 
@@ -6,16 +7,18 @@ import { Injectable } from '@angular/core';
 })
 export class NotesService {
 
-  baseUrl = "http://localhost:7000";
-
   constructor(public http: HttpClient) { }
 
   getNotes(){
-    return this.http.get(this.baseUrl + '/notes');
+    return this.http.get(environment.apiServiceUrl + '/notes');
   }
 
   addNotes(notes:any){
-    return this.http.post(this.baseUrl + '/add-notes', notes);
+    return this.http.post(environment.apiServiceUrl + '/add-notes', notes);
+  }
+
+  delete(objectId: any){
+    return this.http.delete(environment.apiServiceUrl + `/delete/${objectId}`);
   }
 
 }
