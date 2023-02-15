@@ -1,4 +1,4 @@
-import { LoginRegisterComponent } from './../../login-regsiter/login-register.component';
+import { LoginRegisterComponent } from '../login-regsiter/login-register.component';
 import { Component, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from "@angular/flex-layout";
 import { FormControl } from "@angular/forms";
