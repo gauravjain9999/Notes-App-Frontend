@@ -10,14 +10,13 @@ export class LoginRegisterComponent implements OnInit {
 
   constructor(){}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openLink($event: any){
     console.log('event is', $event);
   }
 
   loginUser(){
-    
+
   }
 }
