@@ -1,5 +1,5 @@
+<notifier-container></notifier-container>
 <app-header></app-header>
-
 <div style="margin-left: 10px; display: flex; justify-content: center; margin-top: 4%;">
   <mat-form-field appearance="outline" [style.width.px]=380 [style.height.px]=100>
     <input type="text" autocapitalize="false" [(ngModel)]="searchValue" autocomplete="false" autofocus matTooltip="Search"
@@ -9,9 +9,8 @@
       <mat-icon matSuffix>close</mat-icon>
     </span>
   </mat-form-field> &nbsp; &nbsp;
-  <button class="plusbtn" style="margin-top: 12px;" matTooltip="Add Notes" (click)="addNotes()">&#43;</button>
+  <button class="plusbtn" style="margin-top: 12px;" matTooltip="Add Notes" (click)="addNotes()">+</button>
 </div>
-
 
 <div style="margin-left: 2%; margin-right: 2%;">
   <mat-grid-list [cols]="dashboardGridCols" gutterSize="10px" rowHeight="180px">
@@ -32,7 +31,7 @@
 
           <button mat-menu-item>
             <mat-icon>edit</mat-icon>
-            <span>Edit Notes</span>
+            <span (click)="editNotes(item, i)">Edit Notes</span>
           </button>
         </mat-menu>
         <!-- <mat-divider></mat-divider><br> -->

@@ -12,17 +12,14 @@ export class AddNotesComponent implements OnInit {
   title: string = '';
   description: string = '';
 
-  constructor( private dialogRef: MatDialogRef<AddNotesComponent>,){}
+  constructor( private dialogRef: MatDialogRef<AddNotesComponent>){}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   close(){
     this.dialogRef.close();
   }
 
-  onSubmit(){
-  }
+  onSubmit(){}
 
 }

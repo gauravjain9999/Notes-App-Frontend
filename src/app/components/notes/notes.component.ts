@@ -1,9 +1,12 @@
+import { catchError } from 'rxjs';
+import { ApiResponseData, Application } from './../../core/model/notes.models';
 import { AddNotesComponent } from './../add-notes/add-notes.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { NotesService } from "src/app/services/notes.service";
 import { EditNotesComponent } from "../edit-notes/edit-notes.component";
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-notes',
@@ -18,7 +21,8 @@ export class NotesComponent implements OnInit {
   listApp: any[] = [];
   searchValue: string = '';
 
-  constructor(public mediaObserver: MediaObserver, public dialog: MatDialog, private service: NotesService){
+  constructor( private notifierService: NotifierService,  public mediaObserver: MediaObserver,
+    public dialog: MatDialog, private service: NotesService){
     this.getListNotes()
   }
 
@@ -40,20 +44,43 @@ export class NotesComponent implements OnInit {
     this.searchValue = '';
   }
 
-  editInfo(item: any, index: any){
+  editNotes(item: any, index: any){
     const dialogRef = this.dialog.open(EditNotesComponent, {
-      height: '40px',
+      data: {
+        modal: true,
+        reqData: {item}
+      },
+      height: '400px',
       width: '450px',
     })
-    console.log('ITem is ', item, index);
-  }
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Result is",result);
+
+      if(result){
+        this.service.editNotes(result.reqData.item).subscribe((result: Application) =>{
+        if(result.apiResponseStatus){
+          this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
+          this.getListNotes();
+        }
+      }, (catchError) =>{
+         this.notifierService.notify('error', catchError.error.message);
+      });
+    }
+  });
+}
 
   deleteNotes(item: any, index: any){
-    this.service.delete(item._id).subscribe(data =>{
-      console.log('Notes List is', data);
-      this.listApp = this.listApp.splice(item, index);
-      this.getListNotes();
-    });
+    this.service.deleteNotes(item._id).subscribe((result: Application) =>{
+      if(result.apiResponseStatus){
+        this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
+        this.listApp = this.listApp.splice(item, index);
+        this.getListNotes();
+      }
+    },
+    (catchError) =>{
+      this.notifierService.notify('error', catchError.error.message);
+    })
   }
 
   getListNotes(){
@@ -72,9 +99,14 @@ export class NotesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
        if(result){
-        this.service.addNotes(result).subscribe(data =>{
-          console.log('Data', data);
-          this.getListNotes();
+        this.service.addNotes(result).subscribe((result: Application) =>{
+          if(result.apiResponseStatus){
+            this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage)
+            this.getListNotes();
+          }
+        },
+        (catchError) =>{
+          this.notifierService.notify('error', catchError.error.message);
         })
       }
     });

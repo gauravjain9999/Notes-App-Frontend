@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import './styles/margin_specific.scss';
 @import './styles/fontSize_specific';
 @import './styles/material_specific';
 @import './styles/components_specific';
+@import "node_modules/angular-notifier/styles";
 
 html, body {
   height: 100%;

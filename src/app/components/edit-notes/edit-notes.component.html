@@ -1,1 +1,28 @@
-<p>edit-notes works!</p>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <h1 style="font-family: sans-serif;">Edit Your Notes </h1>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-form-field appearance="outline" [style.width.px]=380>
+    <mat-label>Title</mat-label>
+    <input matInput placeholder="Add Title ..." [(ngModel)]="formData.title">
+    <mat-icon matSuffix>title</mat-icon>
+  </mat-form-field>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-form-field appearance="outline" [style.width.px]=380>
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Add Description ..." rows="100" cols="90" 
+    cdkTextareaAutosize cdkAutosizeMaxRows="8" [(ngModel)]="formData.description"></textarea>
+    <mat-icon matSuffix>description</mat-icon>
+  </mat-form-field>
+</div>  
+
+<mat-chip-list>
+  <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">Save Notes
+  </mat-chip>
+
+  <mat-chip mat-raised-button matTooltip="Close" class="pointer font_color bgColor_cancel" (click)="close()">Cancel
+  </mat-chip>
+</mat-chip-list>

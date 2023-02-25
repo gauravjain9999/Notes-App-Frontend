@@ -1,3 +1,4 @@
+import { EditNotesComponent } from './components/edit-notes/edit-notes.component';
 import { MaterialModule } from './material.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,24 +12,71 @@ import { HeaderComponent } from './components/header/header.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { LoginRegisterComponent } from "./components/login-regsiter/login-register.component";
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+		horizontal: {
+			position: 'right',
+			distance: 20
+		},
+		vertical: {
+			position: 'top',
+			distance: 5,
+			gap: 10
+		}
+	},
+  theme: 'material',
+  behaviour: {
+    autoHide: 5000,
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
+
 
 @NgModule({
   declarations: [
-    AppComponent,
+   AppComponent,
    NotesComponent,
    HeaderComponent,
    AddNotesComponent,
    LoginRegisterComponent,
+   LoginComponent,
+   EditNotesComponent,
+   RegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NotifierModule.withConfig(customNotifierOptions),
     FormsModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NotifierModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
