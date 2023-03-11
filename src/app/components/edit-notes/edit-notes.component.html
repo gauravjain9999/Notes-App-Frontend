@@ -13,16 +13,15 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
   <mat-form-field appearance="outline" [style.width.px]=380>
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Add Description ..." rows="100" cols="90" 
+    <textarea matInput placeholder="Add Description ..." rows="100" cols="90"
     cdkTextareaAutosize cdkAutosizeMaxRows="8" [(ngModel)]="formData.description"></textarea>
     <mat-icon matSuffix>description</mat-icon>
   </mat-form-field>
-</div>  
+</div>
 
 <mat-chip-list>
   <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">Save Notes
   </mat-chip>
-
   <mat-chip mat-raised-button matTooltip="Close" class="pointer font_color bgColor_cancel" (click)="close()">Cancel
   </mat-chip>
 </mat-chip-list>
