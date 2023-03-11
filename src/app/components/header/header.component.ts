@@ -1,4 +1,4 @@
-import { NotesService } from 'src/app/services/notes.service';
+import { NotesService } from 'src/app/core/services/notes.service';
 import { LoginRegisterComponent } from '../login-regsiter/login-register.component';
 import { Component, Input, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MediaChange, MediaObserver } from "@angular/flex-layout";
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnChanges{
   refreshPage(){
    window.location.reload();
   }
-  
+
   close(event: any) {
     this.drawer?.close();
   }

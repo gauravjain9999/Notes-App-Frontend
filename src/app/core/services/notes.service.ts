@@ -1,5 +1,5 @@
-import { UrlEndPoint } from './../constants/urlEndPoints.constant';
-import { environment } from './../../environments/environment';
+import { UrlEndPoint } from '../../constants/urlEndPoints.constant';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 

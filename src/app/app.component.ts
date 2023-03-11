@@ -1,4 +1,4 @@
-import { NotesService } from './services/notes.service';
+import { NotesService } from './core/services/notes.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

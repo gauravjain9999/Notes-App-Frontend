@@ -4,7 +4,7 @@ import { AddNotesComponent } from './../add-notes/add-notes.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
-import { NotesService } from "src/app/services/notes.service";
+import { NotesService } from "src/app/core/services/notes.service";
 import { EditNotesComponent } from "../edit-notes/edit-notes.component";
 import { NotifierService } from 'angular-notifier';
 
