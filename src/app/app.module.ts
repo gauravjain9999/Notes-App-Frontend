@@ -2,7 +2,7 @@ import { EditNotesComponent } from './components/edit-notes/edit-notes.component
 import { MaterialModule } from './material.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { LoginRegisterComponent } from "./components/login-regsiter/login-regist
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { HeaderInterceptor } from "./core/interceptor/header.interceptor";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -78,7 +79,11 @@ const customNotifierOptions: NotifierOptions = {
     BrowserAnimationsModule,
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
+    }
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   exports: []

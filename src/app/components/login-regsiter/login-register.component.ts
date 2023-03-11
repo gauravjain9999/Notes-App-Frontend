@@ -29,7 +29,9 @@ export class LoginRegisterComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
        if(result.modal){
         this.service.loginUser(result.reqData).subscribe((result: Application) =>{
+          console.log('Result is', result);
           if(result.apiResponseStatus){
+            sessionStorage.setItem('token', JSON.stringify(result.apiResponseData?.authorizationToken))
             this.notifier.notify('success', `Welcome ${result.apiResponseData?.message} to your Notes Application`);
           }
         },

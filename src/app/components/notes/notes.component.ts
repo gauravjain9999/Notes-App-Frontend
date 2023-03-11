@@ -23,7 +23,7 @@ export class NotesComponent implements OnInit {
 
   constructor( private notifierService: NotifierService,  public mediaObserver: MediaObserver,
     public dialog: MatDialog, private service: NotesService){
-    this.getListNotes()
+    this.getListNotes();
   }
 
   ngOnInit(): void {
@@ -84,12 +84,16 @@ export class NotesComponent implements OnInit {
   }
 
   getListNotes(){
-    this.service.getNotes().subscribe((res: any) =>{
-      this.listApp = res;
-      console.log('Notes List', this.listApp);
+    this.service.getNotes().subscribe((result: Application) =>{
+      if(result.apiResponseStatus){
+        this.listApp = result.notesList;
+        console.log('Notes List', this.listApp);
+      }
+    },
+    (catchError) =>{
+      this.notifierService.notify('error', 'Something Went Wrong.Please try again.');
     });
   }
-
 
   addNotes(){
     const dialogRef = this.dialog.open(AddNotesComponent, {

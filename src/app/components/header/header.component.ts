@@ -1,5 +1,6 @@
+import { NotesService } from 'src/app/services/notes.service';
 import { LoginRegisterComponent } from '../login-regsiter/login-register.component';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MediaChange, MediaObserver } from "@angular/flex-layout";
 import { FormControl } from "@angular/forms";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
@@ -11,24 +12,27 @@ import { Router } from "@angular/router";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnChanges{
 
   @ViewChild('sidenav') drawer?: MatSidenav;
   hideRequiredControl = new FormControl(false);
   mediaFlagObserver = false;
 
-  constructor(public mediaObserver: MediaObserver, private router: Router,
+  constructor(private notesList: NotesService, public mediaObserver: MediaObserver, private router: Router,
   private bottomSheet: MatBottomSheet) { }
 
   ngOnInit(): void {
-
     this.mediaObserver.asObservable().subscribe((media: MediaChange[]) =>{
       this.mediaFlagObserver =(media[1].mqAlias === 'lt-md') ? true : false;
     })
-
   }
 
+  ngOnChanges(changes: SimpleChanges): void {}
 
+  refreshPage(){
+   window.location.reload();
+  }
+  
   close(event: any) {
     this.drawer?.close();
   }
@@ -37,7 +41,4 @@ export class HeaderComponent {
     this.bottomSheet.open(LoginRegisterComponent);
     // this.router.navigate(['login-Register']);
   }
-
-
-
 }

@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, private dialogRef: MatDialogRef<LoginRegisterComponent>){
     this.dialogData = data;
-    console.log('Dailog data', this.dialogData);
   }
 
   login = new FormGroup ({
