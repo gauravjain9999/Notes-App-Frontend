@@ -1,4 +1,4 @@
-  <mat-toolbar style="background-color:rgb(73 73 7 / 20%)" fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-toolbar style="background-color:rgb(0 0 0/ 26%)" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon matTooltip="Main Menu">menu</mat-icon>
@@ -10,10 +10,9 @@
       <span>Keep Notes</span>
       <span class="example-spacer"></span>
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon style="color: red" matTooltip="Notes">edit</mat-icon>
+        <mat-icon style="color: black" matTooltip="Notes">edit</mat-icon>
       </button>
     </div>
-
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" class="pointer" (click)="refreshPage()" fxLayoutAlign="space-between center" matTooltip="Refresh">
         <mat-icon>refresh</mat-icon>
@@ -21,8 +20,11 @@
       <div class="pointer mT-8 mL-15" matTooltip="Grid View">
         <mat-icon>grid_view</mat-icon>
       </div>
-      <div class="pointer mT-8 mL-15" matTooltip="Setting" (click)="openSetting()">
+      <div class="pointer mT-8 mL-15" [matMenuTriggerFor]="menu" matTooltip="Setting">
         <mat-icon>settings</mat-icon>
       </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openSetting()">My Profile</button>
+      </mat-menu>
     </div>
   </mat-toolbar>

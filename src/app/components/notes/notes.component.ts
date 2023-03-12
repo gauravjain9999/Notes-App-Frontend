@@ -97,7 +97,7 @@ export class NotesComponent implements OnInit {
 
   addNotes(){
     const dialogRef = this.dialog.open(AddNotesComponent, {
-      height: '400px',
+      height: '470px',
       width: '450px',
     })
 

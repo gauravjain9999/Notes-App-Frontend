@@ -5,6 +5,7 @@ import { LoginComponent } from './../../login/login.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { NotifierService } from "angular-notifier";
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -12,7 +13,7 @@ import { NotifierService } from "angular-notifier";
 })
 export class LoginRegisterComponent implements OnInit {
 
-  constructor( public notifier: NotifierService, public dialog: MatDialog, private service: NotesService){}
+  constructor(private router: Router, public notifier: NotifierService, public dialog: MatDialog, private service: NotesService){}
 
   ngOnInit(): void {}
 
@@ -32,7 +33,8 @@ export class LoginRegisterComponent implements OnInit {
           console.log('Result is', result);
           if(result.apiResponseStatus){
             sessionStorage.setItem('token', JSON.stringify(result.apiResponseData?.authorizationToken))
-            this.notifier.notify('success', `Welcome ${result.apiResponseData?.message} to your Notes Application`);
+            this.notifier.notify('success', `Welcome ${result.apiResponseData?.name} to your Notes Application`);
+            this.router.navigate(['notes-app']);
           }
         },
         (catchError) =>{

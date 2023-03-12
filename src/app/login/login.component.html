@@ -1,39 +1,65 @@
-<form class="form-group" [formGroup]="login" (ngSubmit)="onSubmit()">
-  <div class="imgcontainer">
-    <img src="../../assets/notesIcon.webp" alt="Avatar" style="width: 55px; height: 55px; margin-top: -20px;" class="avatar">
-    <span   style="vertical-align: top;" class="heading font-xLarge">Keep <span>Notes</span></span>
-    <mat-divider style="border: 1px solid;"></mat-divider>
+<div>
+  <mat-card [class.mat-elevation-z8]="true">
+    <mat-card-header style="display: flex; align-items: center; justify-content: center;">
+    <mat-card-title>
+      <div style="margin-left: -5px;">
+        <img src="../../assets/notesIcon.webp" alt="Avatar" style="width: 55px; height: 55px; margin-top: -20px;" class="avatar">
+        <span style="vertical-align: top;" class="heading font-xLarge">Keep <span>Notes</span></span>
+      </div>
+      <mat-divider style="border: 1px solid;"></mat-divider>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="mT-30">
+      <form class="form-group" [formGroup]="login" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+        <input matInput autofocus autocomplete="off" (ngModelChange)="getFormData($event)"
+        formControlName="email" placeholder="Email" required>
+        <mat-label>Email</mat-label>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <span *ngIf="validateEmailFlag">
+        <span class="clr-red top-15">*&nbsp;{{'Email should be like xyz@gmail.com'}}</span>
+      </span>
+      <span *ngIf="errEmail">
+        <p class="clr-red top-15">*&nbsp;{{'Email is Required'}}</p>
+      </span>
+
+      <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+        <input [type]="hide ? 'password' : 'text'"  matInput placeholder="Password"(ngModelChange)="changePassword($event)"
+        autocomplete="off" formControlName="password" autofocus autocomplete="off" minlength="8" required >
+        <mat-label>Password</mat-label>
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-hint align="end">Make Your Password Strong</mat-hint>
+      </mat-form-field>
+
+      <span *ngIf="errPassword">
+        <p class="clr-red top-15">*&nbsp;{{'Password is Required'}}</p>
+      </span>
+
+      <span *ngIf="maxPasswordLength">
+        <p class="clr-red top-15">*&nbsp;{{'Password is weak !!!'}}</p>
+      </span>
+      </form>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+
+  <button style="width: 50%; justify-content: center; display: flex; height: 45px; margin-top: 20px;
+    align-items: center; margin-left: 25%; background-color: rgba(0,0,0,0.38);" mat-raised-button color="primary" (click)="onLogin()">
+    Login
+  </button>
+
+  <div style="font-weight: bold; justify-content: center; display: flex; align-items: center; margin-top: 15px;">
+    OR
   </div>
-<div class="mT-30">
-  <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
-    <input matInput autofocus autocomplete="off" (ngModelChange)="getFormData($event)"
-    formControlName="email" placeholder="Email" required>
-    <mat-label>Email</mat-label>
-    <mat-icon matSuffix>email</mat-icon>
-  </mat-form-field>
-  <span *ngIf="errEmail">
-    <p class="clr-red top-15">*&nbsp;{{'Email is Required'}}</p>
-  </span>
 
-  <span *ngIf="validateEmailFlag">
-    <p class="clr-red top-15">*&nbsp;{{'Email should be like xyz@gmail.com'}}</p>
-  </span>
-
-  <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
-    <input [type]="hide ? 'password' : 'text'"  matInput placeholder="Password"(ngModelChange)="changePassword($event)"
-     autocomplete="off" formControlName="password" autofocus autocomplete="off" minlength="8" required >
-    <mat-label>Password</mat-label>
-    <mat-icon matSuffix>password</mat-icon>
-    <mat-hint align="end">Make Your Password Strong</mat-hint>
-  </mat-form-field>
-  <span *ngIf="errPassword">
-    <p class="clr-red top-15">*&nbsp;{{'Password is Required'}}</p>
-  </span>
-  <span *ngIf="maxPasswordLength">
-    <p class="clr-red top-15">*&nbsp;{{'Password is weak !!!'}}</p>
-  </span>
+  <button style="width: 50%; justify-content: center; display: flex; height: 40px; margin-top: 10px;
+    align-items: center; margin-left: 25%;" mat-raised-button color="accent" (click)="onRegister()">
+    Register
+  </button>
+</mat-card-actions>
+</mat-card>
 </div>
 
-<button style="width: 50%; justify-content: center; display: flex; height: 45px;
-  align-items: center; margin-left: 25%;" mat-raised-button color="primary" (click)="onLogin()">Login</button>
-</form>

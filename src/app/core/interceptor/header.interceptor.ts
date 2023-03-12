@@ -22,6 +22,6 @@ export class HeaderInterceptor implements HttpInterceptor {
     }
     return next.handle(httpRequest.clone({ setHeaders: {'authorizationToken': token}
   })
-  ).pipe(delay(timeout))
+  ).pipe(delay(timeout));
  }
 }

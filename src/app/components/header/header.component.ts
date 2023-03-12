@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit, OnChanges{
   }
 
   openSetting(){
-    this.bottomSheet.open(LoginRegisterComponent);
-    // this.router.navigate(['login-Register']);
+    // this.bottomSheet.open(LoginRegisterComponent);
+    this.router.navigate(['user-profile']);
   }
 }
