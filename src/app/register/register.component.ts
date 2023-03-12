@@ -1,3 +1,4 @@
+import { NotifierService } from 'angular-notifier';
 import { LoginRegisterComponent } from './../components/login-regsiter/login-register.component';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -26,7 +27,8 @@ export class RegisterComponent {
   hide: boolean = true;
   genderList = ['Male', 'Female'];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, private dialogRef: MatDialogRef<LoginRegisterComponent>){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, public notification: NotifierService, 
+  private dialogRef: MatDialogRef<LoginRegisterComponent>){
     this.dialogData = data;
     console.log('Dialog data', this.dialogData);
   }
@@ -50,8 +52,16 @@ export class RegisterComponent {
     this.password = this.register.value.password;
   }
 
-  onLogin(): any{
+  errorMessage(event: any){
+    console.log('e');
+    
+    this.notification.notify('error', 'Name is Required');
+    if(event === 'name'){
+    }
+  }
 
+
+  onRegister(): any{
     this.onSubmit();
     if(!this.validateFormField()){
       return false;
@@ -74,6 +84,7 @@ export class RegisterComponent {
   validateFormField(){
     if(!this.userName){
       this.errName = true;
+      this.errorMessage('name');
       return false;
     }
 

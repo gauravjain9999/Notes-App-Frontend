@@ -8,6 +8,7 @@ export class Application{
 export class ApiResponseData{
   username?: string;
   message?: string;
+  name?: string;
   authorizationToken?: any;
   apiResponseMessage: any;
 }

@@ -1,4 +1,101 @@
-<form class="form-group" [formGroup]="register" (ngSubmit)="onSubmit()">
+<mat-card [class.mat-elevation-z8]="true">
+  <mat-card-header style="display: flex;
+  align-items: center;
+  justify-content: center;">
+    <mat-card-title>
+      <div style="margin-left: -5px;">
+        <img src="../../assets/notesIcon.webp" alt="Avatar" style="width: 55px; height: 55px; margin-top: -20px;" class="avatar">
+        <span style="vertical-align: top;" class="heading font-xLarge">Keep <span>Notes</span></span>
+      </div>
+      <mat-divider style="border: 1px solid;"></mat-divider>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="mT-30">
+      <form class="form-group" [formGroup]="register" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+          <input matInput autofocus autocomplete="off" (ngModelChange)="changeFormData('Name')"
+          formControlName="username" placeholder="Name" required>
+          <mat-label>Name</mat-label>
+          <mat-icon matSuffix>user</mat-icon>
+        </mat-form-field>
+        <span *ngIf="errName">
+          <p class="clr-red top-15">*&nbsp;{{'Name is Required'}}</p>
+        </span>
+
+        <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+          <input matInput autofocus autocomplete="off" (ngModelChange)="changeFormData('Email')"
+          formControlName="email" placeholder="Email" required>
+          <mat-label>Email</mat-label>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+        <span *ngIf="errEmail">
+          <p class="clr-red top-15">*&nbsp;{{'Email is Required'}}</p>
+        </span>
+
+        <span *ngIf="validateEmailFlag">
+          <p class="clr-red top-15">*&nbsp;{{'Email should be like xyz@gmail.com'}}</p>
+        </span>
+
+        <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+          <input [type]="hide ? 'password' : 'text'"  matInput placeholder="Password" (ngModelChange)="changeFormData('password')"
+           autocomplete="off" formControlName="password" autofocus autocomplete="off" minlength="8" required >
+          <mat-label>Password</mat-label>
+          <mat-icon matSuffix>password</mat-icon>
+          <mat-hint align="end">Make Your Password Strong</mat-hint>
+        </mat-form-field>
+
+        <span *ngIf="errPassword">
+          <p class="clr-red top-15">*&nbsp;{{'Password is Required'}}</p>
+        </span>
+        <span *ngIf="maxPasswordLength">
+          <p class="clr-red top-15">*&nbsp;{{'Password is weak !!!'}}</p>
+        </span>
+
+        <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker>
+          <input type="number" matInput placeholder="Phone"(ngModelChange)="changeFormData('phone')"
+           autocomplete="off" (keypress)="keyPressNumbers($event)" formControlName="phone" autofocus
+           autocomplete="off" minlength="10" required>
+          <mat-label>Phone</mat-label>
+          <mat-icon matSuffix>phone_number</mat-icon>
+          <mat-hint align="end">Maximum length should be 10</mat-hint>
+        </mat-form-field>
+        <span *ngIf="errPhone">
+          <p class="clr-red top-15">*&nbsp;{{'Phone Number is Required'}}</p>
+        </span>
+        <span *ngIf="maxPasswordLength">
+          <p class="clr-red top-15">*&nbsp;{{'Phone number is not correct'}}</p>
+        </span>
+
+        <mat-form-field class="w-100" appearance="outline" formLabel="auto" hideRequiredMarker >
+          <mat-label>Gender</mat-label>
+           <mat-hint align="end">Choose your Gender</mat-hint>
+           <mat-select  panelClass="my-panel" formControlName="userType">
+             <mat-option [value]="item" *ngFor="let item of genderList" (click)="changeFormData('userType')">
+               {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span *ngIf="errUserType">
+            <p class="clr-red top-15">*&nbsp;{{'Please select your Gender'}}</p>
+          </span>
+      </form>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+  <button style="width: 50%; justify-content: center; display: flex; height: 40px;
+    align-items: center; margin-left: 25%;" mat-raised-button color="accent" (click)="onRegister()">
+    Register
+  </button>
+  </mat-card-actions>
+</mat-card>
+
+
+
+
+
+<!-- <form class="form-group" [formGroup]="register" (ngSubmit)="onSubmit()">
   <div class="imgcontainer">
     <img src="../../assets/notesIcon.webp" alt="Avatar" style="width: 55px; height: 55px; margin-top: -20px;" class="avatar">
     <span   style="vertical-align: top;" class="heading font-xLarge">Keep <span>Notes</span></span>
@@ -75,4 +172,4 @@
 
 <button style="width: 50%; justify-content: center; display: flex; height: 40px;
   align-items: center; margin-left: 25%; margin-top: 30px;" mat-raised-button color="primary" (click)="onLogin()">Register</button>
-</form>
+</form> -->

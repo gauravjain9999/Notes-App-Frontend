@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { HeaderInterceptor } from "./core/interceptor/header.interceptor";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -65,6 +67,7 @@ const customNotifierOptions: NotifierOptions = {
    LoginComponent,
    EditNotesComponent,
    RegisterComponent,
+   UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,9 @@ const customNotifierOptions: NotifierOptions = {
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
-    }
+    },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
