@@ -1,8 +1,11 @@
+
+import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { LoginRegisterComponent } from './../components/login-regsiter/login-register.component';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { NotesService } from "../core/services/notes.service";
+import { Application } from "../core/model/notes.models";
 
 @Component({
   selector: 'app-register',
@@ -27,8 +30,8 @@ export class RegisterComponent {
   hide: boolean = true;
   genderList = ['Male', 'Female'];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, public notification: NotifierService, 
-  private dialogRef: MatDialogRef<LoginRegisterComponent>){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, public notification: NotifierService,
+    public router: Router, public service: NotesService){
     this.dialogData = data;
     console.log('Dialog data', this.dialogData);
   }
@@ -54,12 +57,11 @@ export class RegisterComponent {
 
   errorMessage(event: any){
     console.log('e');
-    
+
     this.notification.notify('error', 'Name is Required');
     if(event === 'name'){
     }
   }
-
 
   onRegister(): any{
     this.onSubmit();
@@ -70,7 +72,16 @@ export class RegisterComponent {
     if(this.register.value.username && this.register.value.password
       && this.register.value.password && this.register.value.phone){
       this.dialogData.reqData = this.register.value;
-      this.dialogRef.close(this.dialogData);
+      this.service.registerUser(this.dialogData.reqData).subscribe((response: Application) =>{
+        if(response.apiResponseStatus){
+          console.log('Message', response.apiResponseData?.apiResponseMessage);
+          this.notification.notify('success', response.apiResponseData?.apiResponseMessage);
+          this.router.navigate(['/login']);
+        }
+        else{
+          this.notification.notify('success', response.apiResponseData?.apiResponseMessage);
+        }
+      })
     }
   }
 
@@ -121,6 +132,7 @@ export class RegisterComponent {
   }
 
   changeFormData(event: any){
+    this.validateEmailFlag = false;
     console.log('Event is', event);
     if(event === 'Name'){
       this.errName = false;

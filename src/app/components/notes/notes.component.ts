@@ -55,17 +55,16 @@ export class NotesComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("Result is",result);
-
       if(result){
         this.service.editNotes(result.reqData.item).subscribe((result: Application) =>{
         if(result.apiResponseStatus){
           this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
           this.getListNotes();
         }
-      }, (catchError) =>{
-         this.notifierService.notify('error', catchError.error.message);
-      });
+        else{
+          this.notifierService.notify('error', result.apiResponseData?.apiResponseMessage);
+        }
+      })
     }
   });
 }
@@ -77,22 +76,22 @@ export class NotesComponent implements OnInit {
         this.listApp = this.listApp.splice(item, index);
         this.getListNotes();
       }
-    },
-    (catchError) =>{
-      this.notifierService.notify('error', catchError.error.message);
+      else{
+        this.notifierService.notify('error', result.apiResponseData?.apiResponseMessage);
+      }
     })
   }
 
   getListNotes(){
     this.service.getNotes().subscribe((result: Application) =>{
       if(result.apiResponseStatus){
-        this.listApp = result.notesList;
+        this.listApp = result.apiResponseData?.notesList;
         console.log('Notes List', this.listApp);
       }
-    },
-    (catchError) =>{
-      this.notifierService.notify('error', 'Something Went Wrong.Please try again.');
-    });
+      else{
+        this.notifierService.notify('error', result.apiResponseData?.apiResponseMessage);
+      }
+    })
   }
 
   addNotes(){
@@ -105,12 +104,12 @@ export class NotesComponent implements OnInit {
        if(result){
         this.service.addNotes(result).subscribe((result: Application) =>{
           if(result.apiResponseStatus){
-            this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage)
+            this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
             this.getListNotes();
           }
-        },
-        (catchError) =>{
-          this.notifierService.notify('error', catchError.error.message);
+          else{
+            this.notifierService.notify('error', result.apiResponseData?.apiResponseMessage);
+          }
         })
       }
     });
