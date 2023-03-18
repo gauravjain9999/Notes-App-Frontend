@@ -15,13 +15,6 @@ export class HeaderInterceptor implements HttpInterceptor {
 
   intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const timeout = 0;
-    let token: any= '';
-    if(sessionStorage.getItem(('token'))){
-      token = sessionStorage.getItem(('token'));
-      console.log('Token is',token);
-    }
-    return next.handle(httpRequest.clone({ setHeaders: {'authorizationToken': token}
-  })
-  ).pipe(delay(timeout));
+    return next.handle(httpRequest.clone()).pipe(delay(timeout));
  }
 }

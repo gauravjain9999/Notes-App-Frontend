@@ -21,8 +21,8 @@ export class NotesComponent implements OnInit {
   listApp: any[] = [];
   searchValue: string = '';
 
-  constructor( private notifierService: NotifierService,  public mediaObserver: MediaObserver,
-    public dialog: MatDialog, private service: NotesService){
+  constructor( public notifierService: NotifierService,  public mediaObserver: MediaObserver,
+    public dialog: MatDialog, public service: NotesService){
     this.getListNotes();
   }
 

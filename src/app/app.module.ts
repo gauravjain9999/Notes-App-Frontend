@@ -11,8 +11,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { HeaderInterceptor } from "./core/interceptor/header.interceptor";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
@@ -43,9 +41,7 @@ const customNotifierOptions: NotifierOptions = {
    NotesComponent,
    HeaderComponent,
    AddNotesComponent,
-   LoginComponent,
    EditNotesComponent,
-   RegisterComponent,
    UserProfileComponent,
   ],
   imports: [

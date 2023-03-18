@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit, OnChanges{
     sessionStorage.removeItem('user-info');
     sessionStorage.removeItem('token');
     localStorage.removeItem('myImage');
-    this.router.navigate(['/login']);
     // this.notificationService.notify('success', 'You are successfully logout.')
   }
 }
