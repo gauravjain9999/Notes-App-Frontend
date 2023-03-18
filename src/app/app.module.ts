@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { LoginRegisterComponent } from "./components/login-regsiter/login-register.component";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
@@ -34,25 +33,6 @@ const customNotifierOptions: NotifierOptions = {
   theme: 'material',
   behaviour: {
     autoHide: 5000,
-  },
-  animations: {
-    enabled: true,
-    show: {
-      preset: 'slide',
-      speed: 300,
-      easing: 'ease'
-    },
-    hide: {
-      preset: 'fade',
-      speed: 300,
-      easing: 'ease',
-      offset: 50
-    },
-    shift: {
-      speed: 300,
-      easing: 'ease'
-    },
-    overlap: 150
   }
 };
 
@@ -63,7 +43,6 @@ const customNotifierOptions: NotifierOptions = {
    NotesComponent,
    HeaderComponent,
    AddNotesComponent,
-   LoginRegisterComponent,
    LoginComponent,
    EditNotesComponent,
    RegisterComponent,

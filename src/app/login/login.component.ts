@@ -1,14 +1,10 @@
 import { NotifierService } from 'angular-notifier';
-
 import { Router } from '@angular/router';
-import { LoginRegisterComponent } from './../components/login-regsiter/login-register.component';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { AddNotesComponent } from "../components/add-notes/add-notes.component";
 import { NotesService } from "../core/services/notes.service";
 import { Application } from "../core/model/notes.models";
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,7 +22,7 @@ export class LoginComponent implements OnInit{
   maxPasswordLength = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, private router: Router,
-  private dialogRef: MatDialogRef<LoginRegisterComponent>, public notesService: NotesService,
+  public notesService: NotesService,
   public notifier: NotifierService){
     this.dialogData = data;
   }
@@ -36,9 +32,7 @@ export class LoginComponent implements OnInit{
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   changePassword(event: any) {
     this.password = event;
@@ -55,20 +49,18 @@ export class LoginComponent implements OnInit{
       return false;
     }
 
+    this.notifier.notify('success', `Welcome to  your Notes Application`);
+
     if(this.login.value.email && this.login.value.password){
       this.dialogData.reqData = this.login.value;
       this.notesService.loginUser(this.dialogData.reqData).subscribe((result: Application) =>{
-        console.log('Result is', result);
         if(result.apiResponseStatus){
           sessionStorage.setItem('user-info', JSON.stringify(result.apiResponseData));
           sessionStorage.setItem('token', JSON.stringify(result.apiResponseData?.authorizationToken))
-          this.notifier.notify('success', `Welcome ${result.apiResponseData?.message} to your Notes Application`);
-          this.router.navigate(['notes-app']);
+          this.notifier.notify('success', `Welcome to ${result.apiResponseData?.userName} your Notes Application`);
+          this.router.navigate(['/notes-app']);
         }
-      },
-      (catchError) =>{
-        this.notifier.notify('error', catchError.error.message);
-      })
+      });
     }
   }
 

@@ -1,9 +1,8 @@
+import { NotifierService } from 'angular-notifier';
 import { NotesService } from 'src/app/core/services/notes.service';
-import { LoginRegisterComponent } from '../login-regsiter/login-register.component';
-import { Component, Input, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MediaChange, MediaObserver } from "@angular/flex-layout";
 import { FormControl } from "@angular/forms";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatSidenav } from "@angular/material/sidenav";
 import { Router } from "@angular/router";
 
@@ -18,8 +17,8 @@ export class HeaderComponent implements OnInit, OnChanges{
   hideRequiredControl = new FormControl(false);
   mediaFlagObserver = false;
 
-  constructor(private notesList: NotesService, public mediaObserver: MediaObserver, private router: Router,
-  private bottomSheet: MatBottomSheet) { }
+  constructor(public notificationService: NotifierService,  private notesList: NotesService, public mediaObserver: MediaObserver, private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.mediaObserver.asObservable().subscribe((media: MediaChange[]) =>{
@@ -37,8 +36,15 @@ export class HeaderComponent implements OnInit, OnChanges{
     this.drawer?.close();
   }
 
-  openSetting(){
-    // this.bottomSheet.open(LoginRegisterComponent);
+  userProfile(){
     this.router.navigate(['user-profile']);
+  }
+
+  logOut(){
+    sessionStorage.removeItem('user-info');
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('myImage');
+    this.router.navigate(['/login']);
+    // this.notificationService.notify('success', 'You are successfully logout.')
   }
 }
