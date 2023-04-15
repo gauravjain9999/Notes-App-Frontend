@@ -1,58 +1,73 @@
 <notifier-container></notifier-container>
-<div fxLayout="row" fxLayoutAlign="center center">
-  <h1 style="font-family: sans-serif;">Create Your Notes </h1>
-</div>
+<mat-dialog-content style="background: rgba(0, 0, 0, 0.14); margin-top: -24px; color: #161719;">
+  <div fxlayout="row" class="center-align-item mT-16" fxlayoutalign="center center">
+    <h1 class="font-style">{{'Create Your Notes'}}</h1>
+  </div>
+</mat-dialog-content>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <mat-form-field appearance="outline" [style.width.px]=380>
-    <mat-label>Title</mat-label>
-    <input matInput placeholder="Add Title ..." [(ngModel)]="formData.title">
-    <mat-icon matSuffix>title</mat-icon>
-  </mat-form-field>
-</div>
+<form class="form-group mT-10" [formGroup]="formData" (ngSubmit)="onSubmit()">
+  <div class="form-group-class" fxlayout="row" fxlayoutalign="space-between center">
+    <mat-form-field [style.width.px]="380"[style.height.px]="12" appearance="outline" formLabel="auto" hideRequiredMarker>
+      <mat-label>{{'Title'}}</mat-label>
+      <input matInput type="text" autocomplete="off" (ngModelChange)="getFormData('title')" formControlName="title"
+      placeholder="Add Title ...">
+      <mat-icon style="float: right; margin-top: -25px;"matsuffix>title</mat-icon>
+    </mat-form-field>
+    <br>
+    <div class="clr-red mT-20" *ngIf="requiredFieldTitle">
+      <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+      <span class="align-middle font-size-14">{{'This Field is Required'}}</span>
+    </div>
+  </div>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <mat-form-field appearance="outline" [style.width.px]=380>
-    <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Add Description ..."  rows="100" cols="90" cdkTextareaAutosize cdkAutosizeMaxRows="8"
-      [(ngModel)]="formData.description"></textarea>
-    <mat-icon matSuffix>description</mat-icon>
-  </mat-form-field>
-</div>
+  <div class="form-group-class mT-20" fxlayout="row" fxlayoutalign="space-between center">
+    <mat-form-field [style.width.px]="380"[style.height.px]="12" appearance="outline" formLabel="auto" hideRequiredMarker>
+      <mat-label>{{'Description'}}</mat-label>
+      <textarea type="textarea" matInput autocomplete="off" formControlName="description" placeholder="Add Description ..."
+        (ngModelChange)="getFormData('description')" rows="15" cols="15" cdktextareaautosize cdkautosizemaxrows="4">
+      </textarea>
+      <mat-icon style="float: right; margin-top: -8px;" matsuffix>description</mat-icon>
+    </mat-form-field>
+    <br><br>
+    <div class="clr-red mT-20" *ngIf="requiredFieldDescription">
+      <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+      <span class="align-middle font-size-14">{{ 'This Field is Required'}}</span>
+    </div>
+  </div>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <label class="btn btn-default pad-0">
-    <button mat-button class="file-upload"
-      onclick="document.getElementById('getFile').click()">{{'Choose File'}}
+  <div class="mT-20"  fxlayout="row" fxlayoutalign="space-between center">
+    <label class="btn btn-default pad-0">
+    <button mat-button class="file-upload" onclick="document.getElementById('getFile').click()">
+      {{'Choose File'}}
     </button>
-
-    <input type="file" id="getFile" style="display:none"
-      multiple onclick="value = null" #fileUploader [(ngModel)]="formData.photo"
-      (change)="getFileDetails($event)"
-      accept=".pdf, image/jpeg, image/png" />
-  </label>
-</div><br>
-
-<div *ngIf="photo">
+    <input type="file" id="getFile" style="display:none" multiple onclick="value = null" #fileUploader enctype="multipart/form-data" (change)="getFileDetails($event)" formcontrolname="image" accept="image/jpeg, image/png"/>
+    </label>
+  </div>
+  <div class="mT-10" *ngIf="image">
     <mat-card class="example-card">
-      <img mat-card-image [src]="photo" alt="Avatar">
-      <mat-card-actions style="margin-top: -20px;">
-        <button matTooltip="Like" class="pointer favorite" mat-fab>
-          <mat-icon>favorite</mat-icon>
+      <img mat-card-image [src]="image" alt="Avatar">
+        <button (click)="removeFile()" class="bg-White clr-Black close pointer" mattooltip="Remove" mat-button>
+          <mat-icon>close</mat-icon>
         </button>
-        <button matTooltip="Delete"class="pointer delete float-right" mat-fab>
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-card-actions>
+        <mat-card-actions class="top-37"></mat-card-actions>
     </mat-card>
-</div><br>
+  </div>
+  <div class="clr-red mT-10" *ngIf="fileSizeError">
+    <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+    <span style="top: -5px; position: relative;" class="position-rel top-5 font-size-14">{{'Maximum Upload Size is 10mb.'}}</span>
+  </div>
 
-<mat-chip-list>
-  <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent"
-    (click)="onSubmit()" [mat-dialog-close]="formData">Add Notes
-  </mat-chip>
+  <div class="clr-red mT-15" *ngIf="isFilePresent">
+    <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+    <span style="vertical-align: top;" class="position-rel font-size-14">{{'Please Upload a file.'}}</span>
+  </div>
 
-  <mat-chip mat-raised-button matTooltip="Close" class="pointer font_color bgColor_cancel"
-    (click)="close()" [mat-dialog-close]="formData">Cancel
-  </mat-chip>
-</mat-chip-list>
+  <mat-chip-list>
+    <div class="mT-20">
+      <mat-chip mat-raised-button mattooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">{{'Add Notes'}}
+      </mat-chip>
+      <mat-chip mat-raised-button mattooltip="Close" class="pointer font_color bgColor_cancel" (click)="close(formData)" [mat-dialog-close]="formData">{{'Cancel'}}
+      </mat-chip>
+    </div>
+  </mat-chip-list>
+</form>

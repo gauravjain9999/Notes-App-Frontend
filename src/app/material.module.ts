@@ -31,13 +31,20 @@ import {MatCardModule} from '@angular/material/card'
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {FlexLayoutModule } from "@angular/flex-layout";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 const materialTheme = [
 
     MatIconModule,
     MatCardModule,
+    MatProgressBarModule,
     MatSortModule,
     MatSliderModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     MatBadgeModule,
     MatDialogModule,
     MatInputModule,

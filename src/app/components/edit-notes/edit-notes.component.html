@@ -6,22 +6,32 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
   <mat-form-field appearance="outline" [style.width.px]=380>
     <mat-label>Title</mat-label>
-    <input matInput placeholder="Add Title ..." [(ngModel)]="formData.title">
+    <input matInput placeholder="Add Title ..." (ngModelChange)="getFormDataChange('title')" [(ngModel)]="formData.title">
     <mat-icon matSuffix>title</mat-icon>
   </mat-form-field>
+</div>
+
+<div class="clr-red top-15" *ngIf="requiredFieldTitle">
+  <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+ <span class="position-abs font-size-14">{{ 'This Field is Required'}}</span>
 </div>
 
 <div fxLayout="row" fxLayoutAlign="space-between center">
   <mat-form-field appearance="outline" [style.width.px]=380>
     <mat-label>Description</mat-label>
     <textarea matInput placeholder="Add Description ..." rows="100" cols="90"
-    cdkTextareaAutosize cdkAutosizeMaxRows="8" [(ngModel)]="formData.description"></textarea>
+    cdkTextareaAutosize cdkAutosizeMaxRows="8" (ngModelChange)="getFormDataChange('description')" [(ngModel)]="formData.description"></textarea>
     <mat-icon matSuffix>description</mat-icon>
   </mat-form-field>
 </div>
 
+<div class="clr-red top-15" *ngIf="requiredFieldDescription">
+  <mat-icon class="material-symbols-outlined icn-ver font-size-20">error</mat-icon>
+ <span class="position-abs font-size-14">{{ 'This Field is Required'}}</span>
+</div>
+
 <mat-chip-list>
-  <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">Save Notes
+  <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">Save
   </mat-chip>
 
   <mat-chip mat-raised-button matTooltip="Close" class="pointer font_color bgColor_cancel" (click)="close()">Cancel

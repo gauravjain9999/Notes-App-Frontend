@@ -20,7 +20,7 @@ export class UserProfileComponent implements OnInit{
    if(sessionStorage.getItem('user-info')){
     this.userData = JSON.parse(sessionStorage.getItem('user-info') as string);
     console.log('USer Data', this.userData);
-    this.name = this.userData.name;
+    this.name = this.userData.userName;
     this.phoneNumber = this.userData.phone;
    }
 

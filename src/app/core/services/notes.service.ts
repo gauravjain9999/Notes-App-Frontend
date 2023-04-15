@@ -15,7 +15,7 @@ export class NotesService {
     return this.http.get(url);
   }
 
-  addNotes(notes:any){
+  addNotes(notes: any){
     const url = environment.apiServiceUrl + UrlEndPoint.addNotes;
     return this.http.post(url, notes);
   }
@@ -39,6 +39,14 @@ export class NotesService {
   registerUser(reqData: any){
     const url = environment.apiServiceUrl + UrlEndPoint.signupUser;
     return this.http.post(url, reqData);
+  }
+
+  uploadFile(formData: any){
+    const url = environment.apiServiceUrl + UrlEndPoint.upload;
+    return this.http.post(url, formData, {
+      reportProgress: true,
+      observe: "events"
+    });
   }
 
 }

@@ -1,5 +1,3 @@
-import { catchError } from 'rxjs';
-import { ApiResponseData, Application } from './../../core/model/notes.models';
 import { AddNotesComponent } from './../add-notes/add-notes.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +5,7 @@ import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { NotesService } from "src/app/core/services/notes.service";
 import { EditNotesComponent } from "../edit-notes/edit-notes.component";
 import { NotifierService } from 'angular-notifier';
+import { Application } from "src/app/core/model/notes.models";
 
 @Component({
   selector: 'app-notes',
@@ -15,11 +14,11 @@ import { NotifierService } from 'angular-notifier';
 })
 export class NotesComponent implements OnInit {
 
-  dashboardGridCols: number = 4;
-  titleNotes: string = '';
-  descriptionNotes: string = '';
-  listApp: any[] = [];
-  searchValue: string = '';
+  dashboardGridCols = 4;
+  titleNotes = '';
+  descriptionNotes = '';
+  listApp: unknown[] = [];
+  searchValue = '';
 
   constructor( private notifierService: NotifierService,  public mediaObserver: MediaObserver,
     public dialog: MatDialog, private service: NotesService){
@@ -44,7 +43,7 @@ export class NotesComponent implements OnInit {
     this.searchValue = '';
   }
 
-  editNotes(item: any, index: any){
+  editNotes(item: unknown){
     const dialogRef = this.dialog.open(EditNotesComponent, {
       data: {
         modal: true,
@@ -69,7 +68,7 @@ export class NotesComponent implements OnInit {
   });
 }
 
-  deleteNotes(item: any, index: any){
+  deleteNotes(item: any, index: number){
     this.service.deleteNotes(item._id).subscribe((result: Application) =>{
       if(result.apiResponseStatus){
         this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
@@ -96,11 +95,14 @@ export class NotesComponent implements OnInit {
 
   addNotes(){
     const dialogRef = this.dialog.open(AddNotesComponent, {
-      height: '470px',
+      height: '550px',
       width: '450px',
+      panelClass: 'bg-color'
     })
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('Result', result);
+
        if(result){
         this.service.addNotes(result).subscribe((result: Application) =>{
           if(result.apiResponseStatus){

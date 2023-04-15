@@ -11,6 +11,19 @@
 }
 
 .float-right{
-  float: right; 
+  float: right;
 }
 
+.align-middle{
+  vertical-align: super;
+}
+
+.center-align-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// .bg-color .mat-dialog-container{
+//   background-color: red;
+// }

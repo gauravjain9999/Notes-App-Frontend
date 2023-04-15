@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { NotesService } from "../core/services/notes.service";
 import { Application } from "../core/model/notes.models";
 
@@ -27,7 +27,7 @@ export class RegisterComponent {
   errPassword = false;
   validateEmailFlag = false;
   maxPasswordLength = false;
-  hide: boolean = true;
+  hide = true;
   genderList = ['Male', 'Female'];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog, public notification: NotifierService,
@@ -44,9 +44,6 @@ export class RegisterComponent {
     userType: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit(): void {
-  }
-
   onSubmit() {
     this.userName = this.register.value.username;
     this.email = this.register.value.email;
@@ -57,10 +54,7 @@ export class RegisterComponent {
 
   errorMessage(event: any){
     console.log('e');
-
     this.notification.notify('error', 'Name is Required');
-    if(event === 'name'){
-    }
   }
 
   onRegister(): any{
@@ -95,7 +89,7 @@ export class RegisterComponent {
   validateFormField(){
     if(!this.userName){
       this.errName = true;
-      this.errorMessage('name');
+      // this.errorMessage('name');
       return false;
     }
 
@@ -137,19 +131,15 @@ export class RegisterComponent {
     if(event === 'Name'){
       this.errName = false;
     }
-    else if(event === 'Email'){
+    else if((event ``=== 'Email') || (event === 'Email' && this.patternValidation(this.email))){
       this.errEmail = false;
-    }
-    else if(event === 'Email' && this.patternValidation(this.email)){
       this.validateEmailFlag = false;
     }
     else if(event === 'phone'){
       this.errPhone = false;
     }
-    else if(event === 'password'){
+    else if((event === 'password') || (event === 'password' && this.password.length  < 8)){
       this.errPassword = false;
-    }
-    else if(event === 'password' && this.password.length  < 8){
       this.maxPasswordLength = false;
     }
     else if(event === 'userType'){

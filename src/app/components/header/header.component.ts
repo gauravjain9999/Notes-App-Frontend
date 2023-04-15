@@ -32,6 +32,10 @@ export class HeaderComponent implements OnInit, OnChanges{
    window.location.reload();
   }
 
+  dashBoardNavigate(){
+    this.router.navigate(['notes-app']);
+  }
+
   close(event: any) {
     this.drawer?.close();
   }

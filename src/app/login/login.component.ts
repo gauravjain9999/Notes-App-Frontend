@@ -48,16 +48,13 @@ export class LoginComponent implements OnInit{
     if(!this.validateFormField()){
       return false;
     }
-
-    this.notifier.notify('success', `Welcome to  your Notes Application`);
-
     if(this.login.value.email && this.login.value.password){
       this.dialogData.reqData = this.login.value;
       this.notesService.loginUser(this.dialogData.reqData).subscribe((result: Application) =>{
         if(result.apiResponseStatus){
           sessionStorage.setItem('user-info', JSON.stringify(result.apiResponseData));
           sessionStorage.setItem('token', JSON.stringify(result.apiResponseData?.authorizationToken))
-          this.notifier.notify('success', `Welcome to ${result.apiResponseData?.userName} your Notes Application`);
+          this.notifier.notify('success', `Welcome ${result.apiResponseData?.userName} to your Notes Application`);
           this.router.navigate(['/notes-app']);
         }
       });
