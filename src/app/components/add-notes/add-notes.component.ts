@@ -2,9 +2,7 @@ import { NotifierService } from 'angular-notifier';
 import { NotesService } from 'src/app/core/services/notes.service';
 import { Component } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
-import { map } from "rxjs";
-import { HttpEventType } from "@angular/common/http";
-import { FormBuilder, FormControl, FormGroup, FormGroupName, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 @Component({
   selector: 'app-add-notes',
   templateUrl: './add-notes.component.html',
@@ -59,11 +57,11 @@ export class AddNotesComponent {
     this.myFile = event.target.files[0];
     console.log('Image is', this.myFile);
 
-    if(!this.fileSizeValidation(this.myFile)){
-      return false;
-    }
-
     if(this.myFile){
+
+      if(!this.fileSizeValidation(this.myFile)){
+        return false;
+      }
       const reader = new FileReader();
       reader.readAsDataURL(this.myFile);
       reader.onload = (e:any) =>{
@@ -82,7 +80,6 @@ export class AddNotesComponent {
     if(this.myFile){
       const formData = new FormData();
       formData.append('image', this.myFile);
-      console.log('Form Data', formData);
       this.service.uploadFile(formData).pipe().subscribe(data =>{
         console.log('Data is', data);
       });
@@ -98,18 +95,16 @@ export class AddNotesComponent {
   }
 
   onSubmit(): any{
-    console.log('Add Form Submit', this.formData.value);
     if(!this.validateField()){
       return false;
     }
-    if(!this.fileSizeValidation(this.myFile)){
-      return false;
-    }
+    // if(!this.fileSizeValidation(this.myFile)){
+    //   return false;
+    // }
     this.submitFile();
-    if(this.formData.status === 'VALID'){
-      delete this.formData.value.image;
-      this.close(this.formData.value);
-    }
+    delete this.formData.value.image;
+    console.log('Form Data', this.formData);
+    this.close(this.formData.value)
   }
 
   validateField(){

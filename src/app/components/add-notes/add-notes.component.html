@@ -46,7 +46,7 @@
   <div class="mT-10" *ngIf="image">
     <mat-card class="example-card">
       <img mat-card-image [src]="image" alt="Avatar">
-        <button (click)="removeFile()" class="bg-White clr-Black close pointer" mattooltip="Remove" mat-button>
+        <button (click)="removeFile()" class="bg-White clr-Black close pointer" matTooltip="Remove" mat-button>
           <mat-icon>close</mat-icon>
         </button>
         <mat-card-actions class="top-37"></mat-card-actions>
@@ -64,9 +64,9 @@
 
   <mat-chip-list>
     <div class="mT-20">
-      <mat-chip mat-raised-button mattooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">{{'Add Notes'}}
+      <mat-chip mat-raised-button matTooltip="Add" class="pointer font_color bgColor_submit" color="accent" (click)="onSubmit()">{{'Add Notes'}}
       </mat-chip>
-      <mat-chip mat-raised-button mattooltip="Close" class="pointer font_color bgColor_cancel" (click)="close(formData)" [mat-dialog-close]="formData">{{'Cancel'}}
+      <mat-chip mat-raised-button matTooltip="Close" class="pointer font_color bgColor_cancel" (click)="close(formData.value)" [mat-dialog-close]="formData.value">{{'Cancel'}}
       </mat-chip>
     </div>
   </mat-chip-list>

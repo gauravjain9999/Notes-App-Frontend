@@ -24,14 +24,14 @@
           </span>
         </h2>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="deleteNotes(item, i)">
             <mat-icon>delete</mat-icon>
-            <span (click)="deleteNotes(item, i)">Delete</span>
+            <span >Delete</span>
           </button>
 
-          <button mat-menu-item>
+          <button mat-menu-item (click)="editNotes(item)">
             <mat-icon>edit</mat-icon>
-            <span (click)="editNotes(item)">Edit Notes</span>
+            <span>Edit Notes</span>
           </button>
         </mat-menu>
         <!-- <mat-divider></mat-divider><br> -->
