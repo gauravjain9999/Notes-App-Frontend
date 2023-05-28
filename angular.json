@@ -62,6 +62,21 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+
+            "staging": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
             }
           },
           "defaultConfiguration": "production"
@@ -74,6 +89,9 @@
             },
             "development": {
               "browserTarget": "Notes-App:build:development"
+            },
+            "staging": {
+              "browserTarget": "Notes-App:build:staging"
             }
           },
           "defaultConfiguration": "development"
