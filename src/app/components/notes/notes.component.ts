@@ -19,9 +19,10 @@ export class NotesComponent implements OnInit {
   descriptionNotes = '';
   listApp: unknown[] = [];
   searchValue = '';
+  isCustomSpinner = false;
 
   constructor( private notifierService: NotifierService,  public mediaObserver: MediaObserver,
-    public dialog: MatDialog, private service: NotesService){
+    public dialog: MatDialog, private notesService: NotesService){
     this.getListNotes();
   }
 
@@ -36,11 +37,26 @@ export class NotesComponent implements OnInit {
       else{
         this.dashboardGridCols = 4;
       }
+    });
+
+    this.notesService.customSpinner.subscribe(event =>{
+      if(event){
+        this.isCustomSpinner = true;
+      }
+      else{
+        this.isCustomSpinner =false;
+      }
     })
   }
 
   clearSearchData(){
     this.searchValue = '';
+  }
+
+  refreshPage(eventValue: boolean){
+    if(eventValue){
+      this.getListNotes();
+    }
   }
 
   editNotes(item: unknown){
@@ -55,7 +71,7 @@ export class NotesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.service.editNotes(result.reqData.item).subscribe((result: Application) =>{
+        this.notesService.editNotes(result.reqData.item).subscribe((result: Application) =>{
         if(result.apiResponseStatus){
           this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
           this.getListNotes();
@@ -69,7 +85,7 @@ export class NotesComponent implements OnInit {
 }
 
   deleteNotes(item: any, index: number){
-    this.service.deleteNotes(item._id).subscribe((result: Application) =>{
+    this.notesService.deleteNotes(item._id).subscribe((result: Application) =>{
       if(result.apiResponseStatus){
         this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
         this.listApp = this.listApp.splice(item, index);
@@ -82,7 +98,7 @@ export class NotesComponent implements OnInit {
   }
 
   getListNotes(){
-    this.service.getNotes().subscribe((result: Application) =>{
+    this.notesService.getNotes().subscribe((result: Application) =>{
       if(result.apiResponseStatus){
         this.listApp = result.apiResponseData?.notesList;
         console.log('Notes List', this.listApp);
@@ -102,9 +118,8 @@ export class NotesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Result', result);
-
        if(result){
-        this.service.addNotes(result).subscribe((result: Application) =>{
+        this.notesService.addNotes(result).subscribe((result: Application) =>{
           if(result.apiResponseStatus){
             this.notifierService.notify('success', result.apiResponseData?.apiResponseMessage);
             this.getListNotes();

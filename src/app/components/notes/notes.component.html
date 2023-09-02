@@ -1,5 +1,6 @@
 <notifier-container></notifier-container>
-<app-header></app-header>
+<app-loader *ngIf="isCustomSpinner"></app-loader>
+<app-header  (refreshApplicationList)="refreshPage($event)"></app-header>
 <div style="margin-left: 10px; display: flex; justify-content: center; margin-top: 4%;">
   <mat-form-field appearance="outline" [style.width.px]=380 [style.height.px]=100>
     <input type="text" autocapitalize="false" [(ngModel)]="searchValue" autocomplete="false" autofocus matTooltip="Search"

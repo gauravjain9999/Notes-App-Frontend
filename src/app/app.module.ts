@@ -17,6 +17,8 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { HeaderInterceptor } from "./core/interceptor/header.interceptor";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { ResponseInterceptor } from "./core/interceptor/response.interceptor";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -36,7 +38,6 @@ const customNotifierOptions: NotifierOptions = {
   }
 };
 
-
 @NgModule({
   declarations: [
    AppComponent,
@@ -47,6 +48,7 @@ const customNotifierOptions: NotifierOptions = {
    EditNotesComponent,
    RegisterComponent,
    UserProfileComponent,
+   LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,11 +61,13 @@ const customNotifierOptions: NotifierOptions = {
     NotifierModule,
     MaterialModule,
     BrowserAnimationsModule,
-
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true
     },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }

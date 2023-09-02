@@ -1,14 +1,20 @@
 import { UrlEndPoint } from '../../constants/urlEndPoints.constant';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
 
+  customSpinner = new EventEmitter<any>();
+
   constructor(public http: HttpClient) { }
+
+  customLoader(isLoaderStart: boolean){
+    this.customSpinner.emit(isLoaderStart);
+  }
 
   getNotes(){
     const url = environment.apiServiceUrl + UrlEndPoint.getNotes;

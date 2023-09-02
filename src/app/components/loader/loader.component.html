@@ -1,0 +1,21 @@
+<div class="custom-overlay">
+  <div class="center" style="    margin-left: 40vw;
+  margin-right: 50%;
+  margin-top: 42vh;">
+    <mat-progress-spinner
+      class="progress-block"
+      [color]="color"
+      [mode]="mode"
+      [value]="value"
+      [diameter]="progressRadius"
+      [strokeWidth]="17"
+      role="spinbutton"
+      aria-label="mat-progress-spinner">
+    </mat-progress-spinner>
+    <div class="status-block" *ngIf="value > 0">
+      <span class="status-style">
+        {{status}}&nbsp; {{value}}%
+      </span>
+    </div>
+  </div>
+</div>

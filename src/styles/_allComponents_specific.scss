@@ -1,0 +1,12 @@
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  // stroke: #00C5AE !important;
+  stroke: #017E72 !important;
+  /*changed to increase accessability */
+  opacity: 0.5;
+}
+
+.mat-progress-spinner {
+  stroke-linecap: round;
+}
